@@ -1,3 +1,4 @@
+<body>
 <path fill=“#1EB287”>
     <animate
              attributeName=“d”
@@ -74,4 +75,4 @@
                      0,50 0,50 0,0
                      50,0 50,0 100,0
                      Z;”/>
-  
+  </body>
