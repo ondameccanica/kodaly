@@ -2,6 +2,56 @@
   <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+      // best seen at 1500px or less
+
+html, body { height: 100%; }
+body {
+  background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+  overflow: hidden;
+}
+
+.ocean { 
+  height: 5%;
+  width:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  background: #015871;
+}
+
+.wave {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
+  position: absolute;
+  top: -198px;
+  width: 6400px;
+  height: 198px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+  top: -175px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  opacity: 1;
+}
+
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -1600px;
+  }
+}
+
+@keyframes swell {
+  0%, 100% {
+    transform: translate3d(0,-25px,0);
+  }
+  50% {
+    transform: translate3d(0,5px,0);
+  }
+}
     
     * { box-sizing: border-box; }
 
@@ -26,120 +76,17 @@ svg {
      </style>
   </head>
 <body>
-
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
 
    <p style="text-align:center" ><font size="6" face="verdana">K O D A L Y</font></p>
     
   <p style="text-align:center" ><font face="verdana">under construction</font></p>
   <div class="center">
     
-    <svg viewbox="0 0 100 100">
-  <path fill="#1EB287">
-    <animate 
-             attributeName="d" 
-             dur="6000ms" 
-             repeatCount="indefinite"
-             keyTimes="0;
-                       .0625;
-                       .208333333;
-                       .3125;
-                       .395833333;
-                       .645833333;
-                       .833333333;
-                       1"
-             calcMode="spline" 
-             keySplines="0,0,1,1;
-                         .42,0,.58,1;
-                         .42,0,1,1;
-                         0,0,.58,1;
-                         .42,0,.58,1;
-                         .42,0,.58,1;
-                         .42,0,.58,1"
-             values="M 0,0 
-                     C 50,0 50,0 100,0
-                     100,50 100,50 100,100
-                     50,100 50,100 0,100
-                     0,50 0,50 0,0
-                     Z;
-
-                     M 0,0 
-                     C 50,0 50,0 100,0
-                     100,50 100,50 100,100
-                     50,100 50,100 0,100
-                     0,50 0,50 0,0
-                     Z;
-
-                     M 50,0 
-                     C 75,25 75,25 100,50 
-                     75,75 75,75 50,100
-                     25,75 25,75 0,50
-                     25,25 25,25 50,0
-                     Z;
-
-                     M 25,50 
-                     C 37.5,25 37.5,25 50,0 
-                     75,50 75,50 100,100
-                     50,100 50,100 0,100
-                     12.5,75 12.5,75 25,50
-                     Z;
-
-                     M 25,50 
-                     C 37.5,25 37.5,25 50,0 
-                     75,50 75,50 100,100
-                     50,100 50,100 0,100
-                     12.5,75 12.5,75 25,50
-                     Z;
-
-                     M 50,0
-                     C 77.6,0 100,22.4 100,50 
-                     100,77.6 77.6,100 50,100
-                     22.4,100, 0,77.6, 0,50
-                     0,22.4, 22.4,0, 50,0
-                     Z;
-                     
-                     M 50,0
-                     C 77.6,0 100,22.4 100,50 
-                     100,77.6 77.6,100 50,100
-                     22.4,100, 0,77.6, 0,50
-                     0,22.4, 22.4,0, 50,0
-                     Z;
-                     
-                     M 100,0 
-                     C 100,50 100,50 100,100
-                     50,100 50,100 0,100
-                     0,50 0,50 0,0
-                     50,0 50,0 100,0
-                     Z;"/>
     
-    <animate 
-             attributeName="fill"
-             dur="3000ms" 
-             repeatCount="indefinite"
-             keyTimes="0;
-                       .0625;
-                       .208333333;
-                       .3125;
-                       .395833333;
-                       .645833333;
-                       .833333333;
-                       1"
-             calcMode="spline" 
-             keySplines="0,0,1,1;
-                         .42,0,.58,1;
-                         .42,0,1,1;
-                         0,0,.58,1;
-                         .42,0,.58,1;
-                         .42,0,.58,1;
-                         .42,0,.58,1"
-             values="#1eb287;
-                     #1eb287;
-                     #1ca69e;
-                     #188fc2;
-                     #188fc2;
-                     #bb625e;
-                     #ca5f52;
-                     #1eb287;"/>    
-</svg>
 
     
   </div>
