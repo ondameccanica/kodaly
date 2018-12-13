@@ -9,6 +9,10 @@ body {
   overflow: hidden;
       
 }
+       
+  
+  
+        
          .margin{ 
   margin-top: 10%;
 }
@@ -70,9 +74,313 @@ body {
   </head>
   
   <body>
+      
+      
+      
+
      <p class="margin" style="text-align:center"><font size="6" face="verdana">K O D A L Y</font></p>
     
   <p style="text-align:center" ><font face="verdana">under construction</font></p>
+      <div style="text-align: center;">
+   <button  style="background: none; border: none;" onclick="connect();"> <br><br><img style="width: 35%"  src="https://www.svgrepo.com/show/17938/power-button.svg">
+</button>
+</div>
+      
+      <div class="terminal">
+        
+          
+<table align="center">
+    <tr>
+        <td>
+            
+            
+            <!--<button id = "startNotifications" disabled onclick="StartNotifications();">LEGGI</button>-->
+            
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-family: verdana; font-size: 90%; visibility: hidden; " for="service_uuid">SERVIZIO:</label>
+            <input style= "border-style: hidden; visibility: hidden;" type="text" id="service_uuid" value ="03b80e5a-ede8-4b33-a751-6ce34ec4c700"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-family: verdana; font-size: 90%; visibility: hidden;" for="service_uuid">CARATTERISTICA:</label>
+            <input style="border-style: hidden; visibility: hidden;" type="text" id="char_uuid" value ="7772e5db-3868-4112-a1a9-f2669d106bf3"/>
+        </td>
+    </tr>
+    <tr>
+        <td id="terminal" style="text-align: center"></td>
+    </tr>
+</table>
+</div>
+<div class = "tavoletta">
+    <div class = "rotella"></div>
+    <div class = "marker"></div>
+</div>
+
+<script>
+
+    const UUID_SERVICE_MIDI = '03b80e5a-ede8-4b33-a751-6ce34ec4c700';
+    const UUID_CHAR_MIDI = '7772e5db-3868-4112-a1a9-f2669d106bf3';
+    let MidiCharacteristic;
+    const buffer = new ArrayBuffer(16);
+    const lastvalues = {};
+
+    function connect(){
+        const service_input = document.querySelector('#service_uuid').value;
+        const char_input = document.querySelector('#char_uuid').value;
+
+        return navigator.bluetooth.requestDevice({
+            acceptAllDevices:true,
+            optionalServices:[service_input]
+        })
+        .then(device => {
+            console.log('Connection.');
+            return device.gatt.connect();
+        })
+        .then(server => {
+            console.log('Connected.');
+            return server.getPrimaryService(service_input);
+        })
+        .then(service => {
+            console.log('Service connected.');
+            return service.getCharacteristic(char_input);
+        })
+        .then(characteristic => characteristic.startNotifications())
+        .then(characteristic => {
+            characteristic.addEventListener('characteristicvaluechanged',
+                handleCharacteristicValueChanged);
+            console.log('Notifications have been started.');
+        })
+        .catch(error => {tlog("error: ", error)});
+    }
+
+    function handleCharacteristicValueChanged(event) {
+        const value = event.target.value;
+        const dato1 = value.getInt8(0);
+        const dato2 = value.getInt8(1);
+        const dato3 = value.getInt8(2);
+        const dato4 = value.getInt8(3);
+        const dato5 = value.getInt8(4);
+        let input = getSensor(dato4);
+        let type = getType(dato3);
+        let log = 'azione: ' + input+' - '+ type+' - ' + dato5;
+        let direction = '';
+        if(input == 'rotella') {
+            direction = getDirection(dato5);
+        }
+        showRotella(direction);
+        showMarker(input);
+
+        tlog(log);
+
+    }
+
+    function getSensor(input){
+        var result = '';
+        switch(input){
+            case 119:
+                result = 'pulsante';
+                break;
+            case 117:
+                result = 'rotella';
+                break;
+            case 60:
+                result = 'p1';
+                break;
+            case 62:
+                result = 'p2';
+                break;
+            case 64:
+                result = 'p3';
+                break;
+            case 65:
+                result = 'p4';
+                break;
+            case 67:
+                result = 'p5';
+                break;
+            case 69:
+                result = 'p6';
+                break;
+            case 71:
+                result = 'p7';
+                break;
+            case 72:
+                result = 'p8';
+                break;
+        }
+        return result;
+    }
+    function getType(input){
+        var result = '';
+        switch(input){
+            case 112:
+                result = 'start';
+                break;
+            case 128:
+                result = 'stop';
+                break;
+            case 96:
+                result = 'data';
+                break;
+            case 80:
+                result = 'rotella';
+                break;
+        }
+        return result;
+    }
+    function getDirection(value){
+        if(lastvalues.rotella === undefined){
+           lastvalues.rotella = value;
+           return '';
+        }
+        let result = '';
+        const lastvalue = lastvalues.rotella;
+        if(lastvalue == 127 && value == 0){
+            result = 'up';
+        } else if(lastvalue == 0 && value == 127){
+            result = 'down';
+        } else {
+            if(lastvalue < value){
+                result = 'up';
+            } else {
+                result = 'down';
+            }
+        }
+        lastvalues.rotella = value;
+        return result;
+    }
+
+    function showRotella(direction){
+        let target = document.querySelector('.rotella');
+        switch(direction){
+            case 'up':
+                target.classList.remove('down');
+                target.classList.add('up');
+                target.style.display='block';
+                break;
+            case 'down':
+                target.classList.remove('up');
+                target.classList.add('down');
+                target.style.display='block';
+                break;
+            default:
+                target.style.display='none';
+                break;
+        }
+    }
+    function showMarker(input){
+        let target = document.querySelector('.marker');
+        switch(input){
+            case 'rotella':
+                target.style.left = '238px';
+                target.style.top = '90px';
+                target.style.display='block';
+                break;
+            case 'pulsante':
+                target.style.left = '238px';
+                target.style.top = '90px';
+                target.style.display='block';
+                break;
+            case 'p1':
+                target.style.left = '135px';
+                target.style.top = '550px';
+                target.style.display='block';
+                break;
+            case 'p2':
+                target.style.left = '360px';
+                target.style.top = '550px'
+                target.style.display='block';
+                break;
+            case 'p3':
+                target.style.left = '590px';
+                target.style.top = '550px'
+                target.style.display='block';
+                break;
+            case 'p4':
+                target.style.left = '815px';
+                target.style.top = '550px'
+                target.style.display='block';
+                break;
+            case 'p5':
+                target.style.left = '135px';
+                target.style.top = '360px';
+                target.style.display='block';
+                break;
+            case 'p6':
+                target.style.left = '360px';
+                target.style.top = '360px'
+                target.style.display='block';
+                break;
+            case 'p7':
+                target.style.left = '590px';
+                target.style.top = '360px'
+                target.style.display='block';
+                break;
+            case 'p8':
+                target.style.left = '815px';
+                target.style.top = '360px'
+                target.style.display='block';
+                break;
+            default:
+                target.style.display='none';
+                break;
+        }
+
+    }
+
+    function tlog(msg){
+        document.querySelector('#terminal').innerHTML = '<p>'+msg+"</p>";
+
+    }
+    function ClearLog(){
+        document.querySelector('#terminal').innerHTML = ""; 
+    }
+    //  deprecated //
+    function StartNotifications() {
+        /*
+        tlog('Starting BLE Notifications...');
+        document.querySelector('#startNotifications').innerHTML = 'FERMA';
+        setTimeout(readingCycle(), 10);
+        */
+        return MidiCharacteristic.readValue()
+            .then(value => {
+                let strval ='';
+                var i;
+                for (i=0;i<value.byteLength;i++){
+                    strval += value.getInt8(i)+' - ';
+                }
+                document.querySelector('#value').innerHTML = strval;
+            })
+    }
+    function readingCycle(){
+        value = MidiCharacteristic.value;
+        if(value !== null){
+            let strval ='';
+            var i;
+            for (i=0;i<value.byteLength;i++){
+                strval += value.getInt8(i)+' - ';
+            }
+            document.querySelector('#value').innerHTML = strval;
+        }
+    }
+    function read(characteristic) {
+        //document.querySelector('#startNotifications').disabled = false;
+        tlog('Notifications have been started.');
+        return characteristic.startNotifications()
+            .then(char => {
+                tlog('Listening....');
+                characteristic.addEventListener('characteristicvaluechanged',
+                    handleCharacteristicValueChanged);
+            })
+            .catch(error => {
+                tlog('Argh! ' + error);
+            });
+    }
+</script>
     
     <div class="ocean">
       
