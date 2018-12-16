@@ -29,7 +29,11 @@ body {
       @media screen and (orientation:landscape) {.margin{ 
   margin-top: 0%;
 }
-      
+  .logo {  
+        animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; }    
       .z{ 
   position: absolute;
             margin-left: 1%;
@@ -117,7 +121,7 @@ body {
   
       <div class="padding" style="text-align: center;">
         
-   <button  style="background: none; border: none;" onclick="connect();"> <br><br><img style="width: 90%"  src="logo.svg">
+   <button class="logo"  style="background: none; border: none;" onclick="connect();"> <br><br><img style="width: 90%"  src="logo.svg">
 </button>
        
 </div>
