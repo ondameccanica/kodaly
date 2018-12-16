@@ -1,0 +1,33 @@
+<svg width="400" height="38" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="40" width="402" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <defs>
+   <style>.cls-1,.cls-3{fill:none;}.cls-1,.cls-2,.cls-4{stroke:#000;stroke-miterlimit:10;}.cls-1,.cls-4{stroke-width:5px;}.cls-4{fill:#fff;}</style>
+  </defs>
+  <g stroke="null" id="svg_17">
+   <g stroke="null" transform="matrix(0.5466886722646078,0,0,0.5466886722646078,-2597.113857405484,-1694.5119617395098) " id="svg_5">
+    <g stroke="null" id="svg_6">
+     <polygon stroke="null" id="svg_8" points="5180.1865234375,3104.64468228817 5193.32666015625,3135.14468228817 5206.466796875,3165.64468228817 5180.1865234375,3165.64468228817 5153.91650390625,3165.64468228817 5167.04638671875,3135.14468228817 5180.1865234375,3104.64468228817 " class="cls-1"/>
+     <path stroke="null" id="svg_9" d="m4840.596645,3134.021491l30,33.49l-6.35,0l-26.83,-29.91l-5.17,5.86l0,24l-4.71,0l0,-67.62l4.71,0l0,36.37l32,-36.37l6.29,0l-29.94,34.18z" class="cls-2"/>
+     <path stroke="null" id="svg_10" d="m4925.906645,3133.731491a33.78,33.78 0 1 1 33.78,33.79a33.75,33.75 0 0 1 -33.78,-33.79zm4.67,0a29.11,29.11 0 1 0 29.11,-29.12a29.09,29.09 0 0 0 -29.15,29.12l0.04,0z" class="cls-2"/>
+     <path stroke="null" id="svg_11" d="m5062.466645,3099.941491a33.79,33.79 0 0 1 0,67.57l-13.51,0l0,-67.67l13.51,0l0,0.1zm29.07,33.79a29.09,29.09 0 0 0 -29.11,-29.12l-8.84,0l0,58.24l8.84,0a29.09,29.09 0 0 0 29.11,-29.12z" class="cls-2"/>
+     <path stroke="null" id="svg_12" d="m5298.466645,3167.611491l-36.07,0l0,-67.67l4.67,0l0,62.9l31.3,0l0.1,4.77z" class="cls-2"/>
+     <path stroke="null" id="svg_13" d="m5405.346645,3099.941491l-23.45,42.33l0,25.24l-4.67,0l0,-24.45l-23.46,-43.22l5.37,0l20.28,37.26l20.67,-37.26l5.26,0.1z" class="cls-2"/>
+     <line stroke="null" id="svg_14" y2="3152.611491" x2="5162.466645" y1="3148.611491" x1="5164.466645" class="cls-3"/>
+     <circle stroke="null" id="svg_15" r="247.159988" cy="2784.921491" cx="5071.696645"/>
+     <circle stroke="null" id="svg_16" r="247.159988" cy="2693.391491" cx="5161.236645" class="cls-4"/>
+    </g>
+   </g>
+  </g>
+  <rect id="svg_18" height="84" width="398" y="387.5" x="290.5" stroke-width="0" stroke="#000" fill="#fff"/>
+ </g>
+</svg>
